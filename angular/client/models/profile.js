@@ -7,16 +7,16 @@ angular.module('facebook')
   }
 
   Profile.update = function(user){
-    var userObject = {
-      email: user.email,
-      avatar: user.avatar,
-      age: user.age,
-      address: user.address,
-      photo: user.photo,
-      gender: user.gender,
-      birthday: user.birthday
-    };
-    return $http.put(nodeUrl + '/profile', userObject);
+    // var userObject = {
+    //   email: user.email,
+    //   avatar: user.avatar,
+    //   age: user.age,
+    //   address: user.address,
+    //   photo: user.photo,
+    //   gender: user.gender,
+    //   birthday: user.birthday
+    // };
+    return $http.put(nodeUrl + '/profile', user);
   };
 
   Profile.getProfile = function(){

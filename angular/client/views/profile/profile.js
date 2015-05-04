@@ -6,8 +6,13 @@ angular.module('facebook')
 
   Profile.getProfile()
     .then(function(response){
-      $scope.user = response.data;
-      $scope.user.birthday = new Date($scope.user.birthday);
+      var newObj = response.data;
+      delete newObj._id;
+      delete newObj.uid;
+      delete newObj.__v;
+      delete newObj.createdAt;
+      newObj.birthday = new Date(newObj.birthday);
+      $scope.user = newObj;
   });
 
   $scope.update = function(user){

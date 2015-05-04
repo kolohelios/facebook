@@ -17,6 +17,7 @@ exports.init = function(port, cb){
     server.register(Plugins, function(err){
       if(err){return cb(err);}
 
+      server.auth.strategy('token', 'jwt', true, server.plugins.authentication.authenticate);
       server.start(function(err){
         return cb(err, server);
       });

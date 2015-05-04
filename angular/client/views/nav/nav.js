@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('facebook')
-.controller('NavCtrl', function($rootScope, $scope, $state, $firebaseObject, User){
+.controller('NavCtrl', function($rootScope, $scope, $state, $firebaseObject, User, $http){
 
   $scope.afAuth.$onAuth(function(data){
     if(data){
@@ -9,11 +9,13 @@ angular.module('facebook')
       $rootScope.displayName = getDisplayName(data);
       $rootScope.fbUser = $rootScope.fbRoot.child('users/' + data.uid);
       $rootScope.afUser = $firebaseObject($rootScope.fbUser);
+      $http.defaults.headers.common.Authorization = 'Bearer ' + data.token;
     }else{
       $rootScope.activeUser = null;
       $rootScope.displayName = null;
       $rootScope.fbUser = null;
       $rootScope.afUser = null;
+      $http.defaults.headers.common.Authorization = null;
     }
 
     $state.go('home');
@@ -27,8 +29,8 @@ angular.module('facebook')
     switch(data.provider){
       case 'password':
         return data.password.email;
-      case 'twitter':
-        return data.twitter.username;
+      case 'github':
+        return data.github.username;
     }
   }
 });

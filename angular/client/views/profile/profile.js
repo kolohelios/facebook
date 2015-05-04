@@ -2,7 +2,13 @@
 
 angular.module('facebook')
 .controller('ProfileCtrl', function($scope, $window, Profile){
-  $scope.user = {};
+  //$scope.user = {};
+
+  Profile.getProfile()
+    .then(function(response){
+      $scope.user = response.data;
+      $scope.user.birthday = new Date($scope.user.birthday);
+  });
 
   $scope.update = function(user){
     Profile.update(user)
@@ -27,4 +33,5 @@ angular.module('facebook')
       $scope.user.photo = dataUri;
     });
   };
+
 });
